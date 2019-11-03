@@ -71,6 +71,8 @@ void draw_ellipse(int xCenter, int yCenter, int Rx, int Ry);
 /*=---------------------------------------- Display ------------------------------------------=*/
 /*=============================================================================================*/
 
+void displayPoint();
+
 void displayBresenham();
 
 void displayDDA();
@@ -78,6 +80,10 @@ void displayDDA();
 void displayCircle();
 
 void displayEllips();
+
+/*=============================================================================================*/
+/*=----------------------------------------- View --------------------------------------------=*/
+/*=============================================================================================*/
 
 void viewEllips(int argc, char** argv);
 
@@ -87,8 +93,24 @@ void viewLineBresenham(int argc, char** argv);
 
 void viewLineDDA(int argc, char** argv);
 
+void viewPoint(int argc, char** argv);
+
 /*=============================================================================================*/
 /*=------------------------------------ Transformation ---------------------------------------=*/
 /*=============================================================================================*/
 
+Point translation(Point point,int xTr,int yTr);
 
+Point rotation_point_ccw(double angle,Point pointRotation);
+
+Point rotation_point_cw(double angle,Point pointRotation);
+
+Line rotation_line_ccw(double angle,Line lineRotation);
+
+Line rotation_line_cw(double angle,Line lineRotation);
+
+Line reflection_line_x(int x,Line lineReflection);
+
+Line reflection_line_y(int y,Line lineReflection);
+
+Point scaling(Point point,int xSc,int ySc);
