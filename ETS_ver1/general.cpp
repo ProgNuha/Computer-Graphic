@@ -2,6 +2,7 @@
 
 // Function for line-generation 
 // using Bresenham's algorithm 
+// https://github.com/nowke/cg_lab/blob/master/1_bresenham_line/bresenham_line.cpp
 void draw_line_bresenham(int x1, int y1, int x2, int y2){
 	int dx, dy, i, e;
 	int incx, incy, inc1, inc2;
@@ -229,6 +230,26 @@ void animated_scale_polygon(Point pivot, Point p, int radius, int edge){
 	for(int j=0;j<count;j++){
 		p = scaling_matrix(pivot,p,scale+=0.25);
 		poligon(edge,pivot,p); 
+		clear_screen(delay);
+	}
+}
+
+void animated_scale_2polygon(Point pivot, Point p, int radius, int edge){
+	Point temp = p;
+	float scale=0.0;
+	int count = 8,delay = 200;
+	
+	temp.y = pivot.y - 10;
+	
+	if(edge>10){
+		count = 9;
+	}
+	
+	for(int j=0;j<count;j++){
+		p = scaling_matrix(pivot,p,scale+=0.25);
+		poligon(edge,pivot,p); 
+		temp = scaling_matrix(pivot,temp,scale+=0.25);
+		poligon(edge,pivot,temp); 
 		clear_screen(delay);
 	}
 }
