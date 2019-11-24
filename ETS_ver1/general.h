@@ -41,19 +41,44 @@ Point circlePoint(Point pivot,int r);
 Point translation(Point d, Point p);
 Point translation_matrix(Point t, Point p);
 Point ownRotate1(int x, int y, int pivot_x, int pivot_y, double angle);
-//Point rotate_cw(Point center, Point pivot, double angle);
 Point rotate_cw(Point p, Point t, double angle);
 Point rotate_ccw(Point center, Point pivot, double angle);
 Point scaling_matrix(Point t, Point p,float scale);
 
 /*=============================================================================================*/
-/*=----------------------------------------- Poligon -----------------------------------------=*/
+/*=----------------------------------------- Animated ----------------------------------------=*/
 /*=============================================================================================*/
 
-void setcolor_poligon(int n);
 void poligon(int n, Point pivot, Point p);
-void poligon_pattern(int edge, Point pivot, Point p, int radius);
-void pattern();
-void scaling_polygon();
 
+void poligon_pattern(int edge, Point pivot, Point p, int radius);
+
+void poligon_pattern_rotate(int edge, Point pivot, Point p, int radius);
+
+void pattern();
+
+void animated_translation_polygon(Point pivot, Point t, int edge, int radius);
+void looping_translation_polygon(Point pivot,Point t, int radius);
+Point tranlation_point(int i);
+
+void animated_scale_polygon(Point pivot, Point p, int radius,int edge);
+void loop_scale_poligon(Point pivot, Point p, int radius, int edge);
+
+void animated_rotate_polygon(Point pivot, int radius, double angle,int edge);
+void looping_rotate_polygon(Point pivot, int radius, double angle);
+
+void clear_screen(int time_delay);
+
+
+/*=============================================================================================*/
+/*=----------------------------------------- - - - - ----------------------------------------=*/
+/*=============================================================================================*/
+void looping_rotate_and_scale_polygon(Point pivot, int radius,double angle);
+void line_circuit(int edge, Point pivot, Point p, int radius,int stop);
+
+Point return_line_bresenham(int x1, int y1, int x2, int y2,int stop);
+bool return_point(int count, int stop);
+
+
+void setcolor_poligon(int n);
 
