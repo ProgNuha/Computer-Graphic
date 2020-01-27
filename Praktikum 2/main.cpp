@@ -8,200 +8,97 @@ main(int argc, char *argv[])
 	scanf("%d", &height);
 	printf("Width = ");
 	scanf("%d", &width);
-	initwindow(width,height, "PRAKTIKUM KOMPUTER GRAFIK - 1711050");	// init window graphics
+	initwindow(width,height, 
+		"PRAKTIKUM KOMPUTER GRAFIK - 1711050");	// init window graphics
 	
 	/*=================================================================================*/
 	/* Input amount of pixel */
-	int p;
-	printf("Pixel = ");
-	scanf("%d", &p);
+	int number_of_points;
+	printf("Points = ");
+	scanf("%d", &number_of_points);
 
 	/* pixel */
-	Point p1;
-	for(int i = 0;i<p;i++){	
-		p1.x = rand()%getmaxx();			// random the value of x
-		p1.y = rand()%getmaxy();			// random the value of y
-		putpixel(p1.x,p1.y,rand()%15+1);	// show pixel, with random the color
+	Point points;
+	for(int increment = 0;increment<number_of_points;increment++){	
+		points.x = rand()%getmaxx();			// random the value of x
+		points.y = rand()%getmaxy();			// random the value of y
+		putpixel(points.x,points.y,rand()%15+1);	// show pixel, with random the color
 	}
  	/*=================================================================================*/
  	
  	
  	/*=================================================================================*/
 	/* Input amount of line */
-	int l;
+	int number_of_lines;
 	printf("Line = ");
-	scanf("%d", &l);
+	scanf("%d", &number_of_lines);
 	
 	/* line */
-	Point l1,l2;
-	for(int i = 0;i<l;i++){
-		l1.x = rand()%getmaxx();	// random the value of x
-		l1.y = rand()%getmaxy();	// random the value of y
-		l2.x = rand()%getmaxx();	// random the value of x
-		l2.y = rand()%getmaxy();	// random the value of y
-		setcolor(rand()%15+1);		// set color, with parameter to get random color
-	//	line(l1.x,l1.y,l2.x,l2.y);	// create line using default function at graphics.h
-		ownLine(l1,l2);				// create line using custom function at general.h
+	Point point1,point2;
+	for(int i = 0;i<number_of_lines;i++){
+		point1.x = rand()%getmaxx();	// random the value of x
+		point1.y = rand()%getmaxy();	// random the value of y
+		point2.x = rand()%getmaxx();	// random the value of x
+		point2.y = rand()%getmaxy();	// random the value of y
+		draw_line_bresenham(point2.x,point2.y,point1.x,point1.y,rand()%15+1);
 	}
  	/*=================================================================================*/
 
 
-	/*=================================================================================*/
 	/* clear canvas */
-	int clear;
-	while(clear != 1){
-		printf("Clear? ");
-		scanf("%d", &clear);
-	}
 	cleardevice();
-	/*=================================================================================*/
+
 
 
 	/*=================================================================================*/
 	/* Input margin */
-	int loop,m,color;
+	int counter_line,margin,color;
 	printf("Margin = ");
-	scanf("%d", &m);
+	scanf("%d", &margin);
 
 	/* create square with 2 line using function and the other using putpixel */
-	loop = m;
+	counter_line = margin;
 	color = rand()%15+1;		// random color
-	setcolor(color);			// setcolor
 	
 	/* create square */
 	/* 2 line using function */
-	line(m,m,getmaxx()-m,m);
-	line(m,getmaxx()-m,getmaxx()-m,getmaxx()-m);
+	draw_line_bresenham(margin,margin,getmaxx()-margin,margin,color);
+	draw_line_bresenham(margin,getmaxx()-margin,getmaxx()-margin,getmaxx()-margin,color);
 	/* 2 line using putpixel */
-	for(loop;loop-1<getmaxx()-m;loop++){
-		putpixel(m,loop,color);
-		putpixel(getmaxx()-m,loop,color);
+	for(counter_line;counter_line-1<getmaxx()-margin;counter_line++){
+		putpixel(margin,counter_line,color);
+		putpixel(getmaxx()-margin,counter_line,color);
 	}
 	/*=================================================================================*/
 	
 	
 	/*=================================================================================*/
 	/* fine 4 corners of rectangle */
-	Point c2;
-	for(int yy = 0;yy<getmaxy();yy++){
-		for(int xx = 0;xx<getmaxx();xx++){
+	Point corner;
+	for(int increment_y = 0;increment_y<getmaxy();increment_y++){
+		for(int increment_x = 0;increment_x<getmaxx();increment_x++){
 			/* upper left corner */
-			if(getpixel(xx,yy) == color && getpixel(xx+1,yy) == color && getpixel(xx,yy+1) == color){
-				printf("Koordinat titik sudut kiri atas =  (%d,%d)\n", xx,yy);
+			if(getpixel(increment_x,increment_y) == color && getpixel(increment_x+1,increment_y) == color && getpixel(increment_x,increment_y+1) == color){
+				printf("Koordinat titik sudut kiri atas =  (%d,%d)\n", increment_y,increment_y);
 			}
 			/* upper right corner */
-			if(getpixel(xx,yy) == color && getpixel(xx-1,yy) == color && getpixel(xx,yy+1) == color){
-				printf("Koordinat titik sudut kanan atas =  (%d,%d)\n", xx,yy);
+			if(getpixel(increment_x,increment_y) == color && getpixel(increment_x-1,increment_y) == color && getpixel(increment_x,increment_y+1) == color){
+				printf("Koordinat titik sudut kanan atas =  (%d,%d)\n", increment_y,increment_y);
 			}
 			/* bottom left corner */
-			if(getpixel(xx,yy) == color && getpixel(xx+1,yy) == color && getpixel(xx,yy-1) == color){
-				printf("Koordinat titik sudut kiri bawah =  (%d,%d)\n", xx,yy);
+			if(getpixel(increment_x,increment_y) == color && getpixel(increment_x+1,increment_y) == color && getpixel(increment_x,increment_y-1) == color){
+				printf("Koordinat titik sudut kiri bawah =  (%d,%d)\n", increment_y,increment_y);
 			}
 			/* bottom right corner */
-			if(getpixel(xx,yy) == color && getpixel(xx-1,yy) == color && getpixel(xx,yy-1) == color){
-				printf("Koordinat titik sudut kanan bawah = (%d,%d)\n", xx,yy);
-				c2.x = xx;
-				c2.y = yy;
+			if(getpixel(increment_x,increment_y) == color && getpixel(increment_x-1,increment_y) == color && getpixel(increment_x,increment_y-1) == color){
+				printf("Koordinat titik sudut kanan bawah = (%d,%d)\n", increment_y,increment_y);
+				corner.x = increment_x;
+				corner.y = increment_y;
 			}
 		}	
 	}
 	/*=================================================================================*/
 		
-
-	/*=================================================================================*/
-	/* create cartesian */
-	int counter = m;
-	int center;
-	center = ((c2.x-m)/2)+m;
-	
-	line(m,center,getmaxx()-m,center);
-	line(center,m,center,c2.y);
-	
-	//	for(counter;counter-1<getmaxx()-m;counter++){
-	//		putpixel(counter,center,color);
-	//		putpixel(center,counter,color);
-	//	}
-	
-	/*=================================================================================*/
-
-
-	/*=================================================================================*/
-	Point c0,c1,p,temp;
-	int temp1,temp2,dilation=5;
-	c0.x = center;
-	c0.y = center;
-	p = c0;
-	
-	/* y=x^2 */
-	for(int i = 1;i<6;i++){
-		/*find dilation*/
-		temp.x = i*dilation;
-		temp.y = (i * i)*dilation;
-		/*pick coordinate dilation*/
-		c1.x = center + temp.x;
-		c1.y = center - temp.y;
-		setcolor(10);				//setcolor
-		line(p.x, p.y, c1.x, c1.y);	//draw line
-		p = c1;						//set next point
-	}
-	
-	/* y= */
-	p = c0;
-	for(int i = 2;i<10;i++){
-		c1.x = center + i;
-		temp1 = i*i*i;
-		temp2 = 3*i;
-		c1.y = center - (temp1-temp2-1);
-		setcolor(7);
-		line(p.x, p.y, c1.x, c1.y);
-		p = c1;
-	}
-	
-		/* y= */
-	p = c0;
-	for(int i = 2;i<10;i++){
-		temp.x = i*dilation;
-		c1.x = center + temp.x;
-		temp1 = i*i*i;
-		temp2 = 3*i;
-		temp1 = temp1 - temp2 - 1;
-		temp.y = temp1 * dilation;
-		c1.y = center - temp.y;
-		setcolor(1);
-		line(p.x, p.y, c1.x, c1.y);
-		p = c1;
-	}
-	
-//	double degree = 0,x_rad;
-//	/* y=cos(x) */
-//	p = c0;
-//	for(int i = 0;i<10;i++){
-//		c1.x = center + i;
-//		x_rad = degree*3.14159/180;
-//		c1.y = abs(cos(x_rad));
-//		setcolor(3);
-//		putpixel(c1.x, c1.y, 3);
-//		p = c1;
-//		degree += 30;
-//	}
-
-//	double degree = 0,x_rad;
-//	/* y=sin(x) */
-//	p = c0;
-//	for(int i = 0;i<10;i++){
-//		c1.x = center + i;
-//		x_rad = degree*3.14159/180;
-//		c1.y = abs(sin(x_rad));
-//		setcolor(3);
-//		putpixel(c1.x, c1.y, 3);
-//		p = c1;
-//		degree += 30;
-//	}
-	/*=================================================================================*/
-	
-	
-
-	
 
 	getch();
 	closegraph();	
