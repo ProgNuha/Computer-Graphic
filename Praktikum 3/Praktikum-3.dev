@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=5
+UnitCount=3
 
 [VersionInfo]
 Major=1
@@ -60,26 +60,6 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit2]
-FileName=general.h
-CompileCpp=1
-Folder=Praktikum-2
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit3]
-FileName=general.cpp
-CompileCpp=1
-Folder=Praktikum-2
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit4]
 FileName=praktikum-3.cpp
 CompileCpp=1
@@ -91,6 +71,26 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
+FileName=praktikum-3.h
+CompileCpp=1
+Folder=Praktikum-3
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit2]
+FileName=praktikum-3.cpp
+CompileCpp=1
+Folder=Praktikum-3
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
 FileName=praktikum-3.h
 CompileCpp=1
 Folder=Praktikum-3

@@ -1,35 +1,54 @@
-#include "general.h"
 #include "praktikum-3.h"
 
-void line_bresenham(int xa, int ya, int xb, int yb) { 
-	int dx = abs(xa-xb), dy = abs(ya-yb);
-	int p = 2 * dy - dx;
-	int twoDy = 2 * dy, twoDyDx = 2 * (dy - dx);
-	int x,y,xEnd;
+void line_bresenham(int x1, int y1, int x2, int y2, int color) 
+{ 
+	int dx, dy, i, e;
+	int incx, incy, inc1, inc2;
+	int x,y;
+
+	dx = x2-x1;
+	dy = y2-y1;
+
+	if (dx < 0) dx = -dx;
+	if (dy < 0) dy = -dy;
+	incx = 1;
 	
-	/**/
-	if(xa>xb){
-		x = xb;
-		y = yb;
-		xEnd = xa;
-	} else {
-		x = xa;
-		y = ya;
-		xEnd = xb;
-	}
-	putpixel(x,y,3);
-	delay(10);
+	if (x2 < x1) incx = -1;
+	incy = 1;
 	
-	while(x<xEnd){
-		x++;
-		if(p<0){
-			p += twoDy;
-		} else {
-			y++;
-			p += twoDyDx;
+	if (y2 < y1) incy = -1;
+	x = x1; y = y1;
+	
+	if (dx > dy) {
+		putpixel(x, y, color);
+		e = 2 * dy-dx;
+		inc1 = 2*(dy-dx);
+		inc2 = 2*dy;
+		for (i=0; i<dx; i++) {
+			if (e >= 0) {
+				y += incy;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			x += incx;
+			putpixel(x, y, color);
 		}
-		putpixel(x,y,3);
-		delay(10);
+	} else {
+		putpixel(x, y, color);
+		e = 2*dx-dy;
+		inc1 = 2*(dx-dy);
+		inc2 = 2*dx;
+		for (i=0; i<dy; i++) {
+			if (e >= 0) {
+				x += incx;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			y += incy;
+			putpixel(x, y, color);
+		}
 	}
 } 
 
@@ -61,6 +80,7 @@ void drawQuarterCircle(int xc, int yc, int x, int y)
     putpixel(xc-x, yc+y, 2);
 } 
 
+
 // Function for circle-generation 
 // using Bresenham's algorithm 
 void quarter_circle_bresenham(int xc, int yc, int r) 
@@ -88,8 +108,8 @@ void quarter_circle_bresenham(int xc, int yc, int r)
         drawQuarterCircle(xc, yc, x, y); 
     } 
     
-    line_bresenham(xc+x, yc+y,xc-x, yc+y);
-	line_bresenham(250,180,250,320); 
+    line_bresenham(xc+x, yc+y,xc-x, yc+y,7);
+	line_bresenham(250,180,250,320,7); 
 } 
 
 // Function for circle-generation 
@@ -150,97 +170,125 @@ void circle_bresenham(int xc, int yc, int r)
     } 
 } 
 
-// function for line generation 
+void breakline_bresenham(int x1, int y1, int x2, int y2, int color, int space) 
+{ 
+	int dx, dy, i, e;
+	int incx, incy, inc1, inc2;
+	int x,y;
 
-void breakline1_bresenham(int xa, int ya, int xb, int yb,int break_) { 
-	int dx = abs(xa-xb), dy = abs(ya-yb);
-	int p = 2 * dy - dx;
-	int twoDy = 2 * dy, twoDyDx = 2 * (dy - dx);
-	int x,y,xEnd;
+	dx = x2-x1;
+	dy = y2-y1;
+
+	if (dx < 0) dx = -dx;
+	if (dy < 0) dy = -dy;
+	incx = 1;
 	
-	/**/
-	if(xa>xb){
-		x = xb;
-		y = yb;
-		xEnd = xa;
+	if (x2 < x1) incx = -1;
+	incy = 1;
+	
+	if (y2 < y1) incy = -1;
+	x = x1; y = y1;
+
+	if (dx > dy) {
+		putpixel(x, y, color);
+		e = 2 * dy-dx;
+		inc1 = 2*(dy-dx);
+		inc2 = 2*dy;
+		for (i=0; i<dx; i++) {
+			if (e >= 0) {
+				y += incy;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			x += incx;
+			
+			if(x % space != 0){
+				putpixel(x, y, color);
+				delay(100);
+			}
+		}
 	} else {
-		x = xa;
-		y = ya;
-		xEnd = xb;
+		putpixel(x, y, color);
+		e = 2*dx-dy;
+		inc1 = 2*(dx-dy);
+		inc2 = 2*dx;
+		for (i=0; i<dy; i++) {
+			if (e >= 0) {
+				x += incx;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			y += incy;
+			if(y % space != 0){
+				putpixel(x, y, color);
+				delay(100);
+			}
+		}
 	}
-	if(xa % break_!= 0){
-			putpixel(x,y,5);
-			delay(100);
-		} else {
-			xa += break_;
-			ya += break_;
-		}
-	
-	while(x<xEnd){
-		x++;
-		if(p<0){
-			p += twoDy;
-		} else {
-			y++;
-			p += twoDyDx;
-		}
-	if(xa % break_!= 0){
-			putpixel(x,y,5);
-			delay(100);
-		} else {
-			xa += break_;
-			ya += break_;
-		}
-	
-	}
-} 
-
-void breakline_bresenham(int x1, int y1, int x2, int y2, int break_) 
-{ 
-	int m_new = 2 * (y2 - y1); 
-	int slope_error_new = m_new - (x2 - x1); 
-	
-	for (int x = x1, y = y1; x <= x2; x++) { 
-		if(x % break_!= 0){
-			putpixel(x,y,5);
-			delay(100);
-		} else {
-			x += break_;
-			y += break_;
-		}
-		
-		// Add slope to increment angle formed 
-		slope_error_new += m_new; 
-		
-		// Slope error reached limit, time to 
-		// increment y and update slope error. 
-		if (slope_error_new >= 0){ 
-		 y++; 
-		 slope_error_new  -= 2 * (x2 - x1); 
-		} 
-	} 
 } 
 
 // function for line generation 
-void thickness_line_bresenham(int x1, int y1, int x2, int y2, int thickness) 
+void thickness_line_bresenham(int x1, int y1, int x2, int y2, int color, int thickness) 
 { 
-	int m_new = 2 * (y2 - y1); 
-	int slope_error_new = m_new - (x2 - x1); 
-	for (int x = x1, y = y1; x <= x2; x++) 
-	{ 
-		for(int xx=0;xx<thickness;xx++){
-			putpixel(x,y+xx,7);
+	int dx, dy, i, e;
+	int incx, incy, inc1, inc2;
+	int x,y;
+
+	dx = x2-x1;
+	dy = y2-y1;
+
+	if (dx < 0) dx = -dx;
+	if (dy < 0) dy = -dy;
+	incx = 1;
+	
+	if (x2 < x1) incx = -1;
+	incy = 1;
+	
+	if (y2 < y1) incy = -1;
+	x = x1; y = y1;
+	
+	if (dx > dy) {
+		for(int increment=0;increment<thickness;increment++){
+			putpixel(x,y+increment,color);
 		}
-		
-		// Add slope to increment angle formed 
-		slope_error_new += m_new; 
-		
-		// Slope error reached limit, time to 
-		// increment y and update slope error. 
-		if (slope_error_new >= 0) 
-		{ 
-		 y++; 
-		 slope_error_new  -= 2 * (x2 - x1); 
-		} 
-	} 
+		e = 2 * dy-dx;
+		inc1 = 2*(dy-dx);
+		inc2 = 2*dy;
+		for (i=0; i<dx; i++) {
+			if (e >= 0) {
+				y += incy;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			x += incx;
+			for(int increment=0;increment<thickness;increment++){
+				putpixel(x,y+increment,color);
+			}
+		}
+	} else {
+		for(int increment=0;increment<thickness;increment++){
+			putpixel(x+increment,y,color);
+		}
+		e = 2*dx-dy;
+		inc1 = 2*(dx-dy);
+		inc2 = 2*dx;
+		for (i=0; i<dy; i++) {
+			if (e >= 0) {
+				x += incx;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			y += incy;
+			for(int increment=0;increment<thickness;increment++){
+				putpixel(x+increment,y,color);
+			}
+		}
+	}
 } 
+
+
+
