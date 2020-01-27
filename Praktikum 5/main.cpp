@@ -2,26 +2,32 @@
 
 main(int argc, char *argv[])
 {
-
-	/* Define size of canvas */
-	int height = 500, width = 500;
-	initwindow(height, width, "PRAKTIKUM KOMPUTER GRAFIK - 1711050");	// init window graphics
+	/* Input size of canvas */
+	int height, width;
+	printf("Height = ");
+	scanf("%d", &height);
+	printf("Width = ");
+	scanf("%d", &width);
+	initwindow(height,width, "PRAKTIKUM KOMPUTER GRAFIK - 1711050");	// init window graphics
 	
-//	/*=================Create Triangle=================*/
-//	/* Define Point */
-//	Point p1,p2;
-//	/* Define point of line */
-//	p1.x = 100;
-//	p1.y = 100;
-//	p2.x = 200;
-//	p2.y = 100;
-//	/* Draw a line */
-//	line_DDA(p1,p2);
-//	/* Define angle */
-//	int angle = 60;
-//	/* Draw a triangle */
-// 	ownTriangle(p1.x, p1.y, p2.x, p2.y,angle);
-//	/*=============End of Create Triangle==============*/
+	
+	/*=================Create Triangle=================*/
+	/* Define Point */
+	Point p1,p2;
+	/* Define point of line */
+	p1.x = 100;
+	p1.y = 100;
+	p2.x = 200;
+	p2.y = 100;
+	/* Draw a line */
+	line_DDA(p1,p2);
+	/* Define angle */
+	int angle = 60;
+	/* Draw a triangle */
+ 	ownTriangle(p1.x, p1.y, p2.x, p2.y,angle);
+ 	delay(1500);
+	cleardevice();
+	/*=============End of Create Triangle==============*/
 
 
 	/*=================Create Poligon=================*/
@@ -42,10 +48,9 @@ main(int argc, char *argv[])
 		delay(500);
 		cleardevice();
 	}
+	delay(1500);
+	cleardevice();
 	/*=============End of Create Poligon=============*/
-	
- 	
-
 
 
 	getch();
